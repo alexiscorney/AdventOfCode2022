@@ -19,11 +19,7 @@ const day1 = ((req, res) => {
     var top_3 = sorted_array[0] + sorted_array[1] + sorted_array[2];
     console.log(max);
 
-    res.json({
-        "day": req.params.day,
-        'part1': max,
-        'part2': top_3
-    });
+    return { dayNumber: 1, part1: max, part2: top_3 };
 })
 
 

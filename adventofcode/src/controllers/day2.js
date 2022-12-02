@@ -10,11 +10,7 @@ const day2 = ((req, res) => {
     const scores_game2 = arr.map(x => playRound2(x));
     const total_score_game2 = scores_game2.reduce((a,b) => a + b, 0);
 
-    res.json({
-        "day": req.params.day,
-        'part1': total_score_game1,
-        'part2': total_score_game2
-    });
+    return { dayNumber: 2, part1: total_score_game1, part2: total_score_game2 };
 })
 
 const convert = ((letter) => {
@@ -49,7 +45,6 @@ const playRound = ((x) => {
     round = x.split(" ");
     you = convert(round[1]);
     opponent = convert(round[0]);
-    console.log(`you ${you}, opponent ${opponent}`)
     outcome = you - opponent; 
     if(outcome == -1 || outcome == 2) {
         return you; 
