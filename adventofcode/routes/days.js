@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { day1 } = require('../controllers/day1.js')
+const { day1 } = require('../src/controllers/day1.js')
 
 /* GET days listing. */
 router.get('/', function(req, res, next) {
