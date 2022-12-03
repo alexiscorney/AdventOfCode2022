@@ -18,8 +18,24 @@ const day3 = ((req, res) => {
         shared_items.push(intersect);
     })
     total = shared_items.reduce(function(a,b) { return a + b[0]}, 0);
-    console.log(total);
-    return { dayNumber: 1, part1: total, part2:  0};
+
+    elf_groups = chunk(rucksacks, 3);
+    badges = [];
+    elf_groups.forEach((a,i) => {
+        const intersect = a[0].filter(val => (a[1].includes(val) && a[2].includes(val)));
+        badges.push(intersect);
+    })
+    total_badges = badges.reduce(function(a,b) { return a + b[0]}, 0);
+    return { dayNumber: 1, part1: total, part2:  total_badges};
 })
+
+function chunk(arr, chunkSize) {
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        const chunk = arr.slice(i, i + chunkSize);
+        res.push(chunk);
+    }
+    return res;
+}
 
 module.exports = { day3 }
