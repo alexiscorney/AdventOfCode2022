@@ -1,3 +1,5 @@
 function createPath(dayNumber) {
-    return `/days/day${dayNumber}`;
+    return `/days/${dayNumber}`;
 }
+
+module.exports = { createPath }

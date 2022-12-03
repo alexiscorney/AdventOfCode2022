@@ -1,5 +1,4 @@
 
-
 const { fileToArray } = require('../utils/readFile');
 
 const day1 = ((req, res) => {
