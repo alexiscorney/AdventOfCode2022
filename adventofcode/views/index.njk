@@ -1,0 +1,17 @@
+{% extends 'layout.njk' %}
+
+{% block content %}
+  {% block header %} Welcome to {{title}} {% endblock %}
+  {% block days %}
+    <table>
+        <tbody>
+            {% for day in days %}
+                <tr>
+                    <td><a href="{{day.path}}">{{day.dayNumber}}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+  {% endblock %}
+{% endblock %}

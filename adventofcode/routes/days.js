@@ -1,19 +1,17 @@
 var express = require('express');
+const req = require('express/lib/request.js');
 var router = express.Router();
+const { controllers } = require('./days_list');
 
-const { day1 } = require('../src/controllers/day1.js')
-const { day2 } = require('../src/controllers/day2.js')
 
 /* GET days listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-// router.get('/:day', function(req, res, next) {
-//   res.send('It is day:' + req.params.day);
-// });
-
-router.get('/day1', day1);
-router.get('/day2', day2);
+router.get('/:day', function(req, res, next) {
+  const json = controllers[req.params.day]();
+  res.render('day', json);
+});
 
 module.exports = router;
