@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); 
