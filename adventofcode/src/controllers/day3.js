@@ -1,8 +1,9 @@
 
 const { fileToArray } = require('../utils/readFile');
+const { getInputPath } = require('../utils/pathHelper');
 
 const day3 = ((req, res) => {
-    const arr = fileToArray('/Users/adcorney/AdventOfCode2022/GIT/AdventOfCode2022/adventofcode/input /day3.txt');
+    const arr = fileToArray(getInputPath('day3.txt'));
     const rucksacks = [];
     arr.forEach((a,i) => {
         rucksacks.push(Array.from(a).map(function(x) { if((x.charCodeAt(0) - 97 + 1) < 0) {
@@ -26,7 +27,7 @@ const day3 = ((req, res) => {
         badges.push(intersect);
     })
     total_badges = badges.reduce(function(a,b) { return a + b[0]}, 0);
-    return { dayNumber: 1, part1: total, part2:  total_badges};
+    return { dayNumber: 3, part1: total, part2:  total_badges};
 })
 
 function chunk(arr, chunkSize) {

@@ -1,8 +1,9 @@
 
 const { fileToArray } = require('../utils/readFile');
+const { getInputPath } = require('../utils/pathHelper');
 
 const day1 = ((req, res) => {
-    const arr = fileToArray('/Users/adcorney/AdventOfCode2022/adventofcode/input /day1.txt');
+    const arr = fileToArray(getInputPath('day1.txt'));
     var s = 0;
     var cal_array = []
     arr.forEach((x,i) => {

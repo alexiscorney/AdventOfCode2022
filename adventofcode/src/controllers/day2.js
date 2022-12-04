@@ -1,9 +1,8 @@
-
-
 const { fileToArray } = require('../utils/readFile');
+const { getInputPath } = require('../utils/pathHelper');
 
 const day2 = ((req, res) => {
-    const arr = fileToArray('/Users/adcorney/AdventOfCode2022/GIT/AdventOfCode2022/adventofcode/input /day2.txt');
+    const arr = fileToArray(getInputPath('day2.txt'));
     const scores_game1 = arr.map(x => playRound(x));
     const total_score_game1 = scores_game1.reduce((a,b) => a + b, 0);
 
