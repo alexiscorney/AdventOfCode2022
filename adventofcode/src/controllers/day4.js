@@ -15,9 +15,10 @@ const day4 = ((req, res) => {
         ranges.sort(function(a,b) { return b.length - a.length });
         pairs.push(ranges);
     })
-    var overlapping_pairs = pairs.filter(pair => (pair[1].every(val => pair[0].includes(val))));
-    const part1 = overlapping_pairs.length;
-    const part2 = 0;
+    var fully_overlapping_pairs = pairs.filter(pair => (pair[1].every(val => pair[0].includes(val))));
+    var partially_overlapping_pairs = pairs.filter(pair => (pair[1].some(val => pair[0].includes(val))));
+    const part1 = fully_overlapping_pairs.length;
+    const part2 = partially_overlapping_pairs.length;
     return { dayNumber: 4, part1: part1, part2:  part2};
 })
 
