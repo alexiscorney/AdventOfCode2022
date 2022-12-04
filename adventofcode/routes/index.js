@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { createPath } = require('../src/utils/createPath')
+const { createPath } = require('../src/utils/pathHelper')
 const { controllers } = require('./days_list');
 
 /* GET home page. */
