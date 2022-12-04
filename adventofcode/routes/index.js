@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { createPath } = require('../src/utils/createPath')
+const { createDaysRoute } = require('../src/utils/pathHelper')
 const { getImage } = require('../src/utils/getImage')
 const { controllers } = require('./days_list');
 
@@ -9,7 +9,7 @@ const { controllers } = require('./days_list');
 router.get('/', function(req, res, next) {
   const days = []
   for(const d of Object.keys(controllers)) {
-    days.push({dayNumber: d, path: createPath(d), img: getImage(d)})
+    days.push({dayNumber: d, path: createDaysRoute(d), img: getImage(d)})
   }
   res.render('index', 
     { 
