@@ -4,6 +4,7 @@ const { day3 } = require("../src/controllers/day3");
 const { day4 } = require("../src/controllers/day4");
 const { day5 } = require("../src/controllers/day5");
 const { day6 } = require("../src/controllers/day6");
+const { day7 } = require("../src/controllers/day7");
 
 const controllers = {
     1: day1,
@@ -12,6 +13,7 @@ const controllers = {
     4: day4,
     5: day5,
     6: day6,
+    7: day7,
 };
 
 module.exports = { controllers };
