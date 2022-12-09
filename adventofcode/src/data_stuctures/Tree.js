@@ -22,12 +22,6 @@ class Tree {
       }
       yield node;
     }
-
-    size_all(start) {
-        var sizes = [];
-
-    }
-
     size(start) {
         var l = [];
         this.traverse(start, l);
@@ -42,27 +36,14 @@ class Tree {
         node.children.forEach(c => {
             this.traverse(c, acc);
         })
-        // } else if(node.isLeaf) {
-        //     return node.value;
-        // } else {
-        //     return acc + (node.children.map(n => this.size(n, acc)));
-        // }
-        // var values = [...this.preOrderTraversal(start)].map(x => x.value);
-        // return values.reduce((a,c) => a + parseInt(c), 0);
+
     }
 
     printKeysPreOrder() {
         return [...this.preOrderTraversal()].map(x => x.key);
     }
   
-    // insert(parentNodeKey, key, value = key) { 
-    //   for (let node of this.preOrderTraversal()) {
-    //     if (node.key === parentNodeKey) {
-    //         node.children.push(new TreeNode(key, value, node));
-    //     }
-    //   }
-    //   return false;
-    // }
+
     insert(node, key, value) {
         const newNode = new TreeNode(key, value, node)
         node.children.push(newNode);
@@ -83,7 +64,6 @@ class Tree {
     find(key) {
       for (let node of this.preOrderTraversal()) {
         if (node.key === key) { 
-            //console.log(`found ${key}`);
             return node;
         }
       }
