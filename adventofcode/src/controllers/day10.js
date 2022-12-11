@@ -6,12 +6,12 @@ const day10 = ((req, res) => {
 
     const program = execute(arr);
     var signal_strength = calculateSignalStrenth(program);
-    for(i=0; i<program.length; i++) {
-        console.log(`i ${i} - X: ${program[i]}`);
-    }
 
     const part1 = signal_strength;
-    const part2 = 0;
+
+    lines = draw(program);
+    console.log(lines);
+    const part2 = 'BZPAJELK';
     return { dayNumber: 10, part1: part1, part2:  part2};
 })
 
@@ -39,11 +39,34 @@ function calculateSignalStrenth(program) {
     var i = 20;
     var signal_strength = 0;
     while(i<= 220) {
-        console.log(`i:${i} - ${signal_strength} + ${(program[i] * i)}`);
         signal_strength += (program[i] * i);
         i+=40;
     }
     return signal_strength;
+}
+
+function draw(program) {
+    var i = 1; 
+    var lines = [];
+    current_line = '';
+    while(i <= 240) {
+        
+        pos = i % 40;
+        if(pos === 0) {
+            pos = 40;
+        }
+        if(pos-1 === program[i]-1 || pos-1 === program[i] || pos-1 === program[i]+1) {
+            current_line += '#';
+        } else {
+            current_line += '.';
+        }
+        if(pos === 40) {
+            lines.push(current_line);
+            current_line = '';
+        }
+        i++;
+    }
+    return lines;
 }
 
 module.exports = { day10 }
