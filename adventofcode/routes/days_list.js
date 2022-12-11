@@ -1,4 +1,5 @@
 const { day1 } = require("../src/controllers/day1");
+const { day10 } = require("../src/controllers/day10");
 const { day2 } = require("../src/controllers/day2");
 const { day3 } = require("../src/controllers/day3");
 const { day4 } = require("../src/controllers/day4");
@@ -18,6 +19,7 @@ const controllers = {
     7: day7,
     8: day8,
     9: day9,
+    10: day10,
 };
 
 module.exports = { controllers };
