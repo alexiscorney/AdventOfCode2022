@@ -24,7 +24,30 @@ const day13 = ((req, res) => {
     }, 0);
 
     const part1 = total;
-    const part2 = 0;
+
+    let packets = []; 
+    arr.forEach(p => {
+        if(p.length > 0) {
+            packets.push(JSON.parse(p));
+        }
+    })
+
+    let d1 = JSON.parse('[[2]]');
+    let d2 = JSON.parse('[[6]]');
+    packets.push(d1);
+    packets.push(d2);
+
+    packets.sort(function(x,y) {
+        if(comparePackets(x,y)) {
+            return -1;
+        } else { return 1 };
+    });
+
+    packets.forEach(a => {
+        console.log(JSON.stringify(a));
+    })
+
+    const part2 = (packets.indexOf(d1) + 1) * (packets.indexOf(d2) + 1);
     return { dayNumber: 13, part1: part1, part2:  part2};
 })
 
@@ -51,19 +74,21 @@ function comparePackets(l, r) {
         } else if(r[0] < l[0]) {
             return false;
         } else { 
-            return comparePackets(l.splice(1), r.splice(1));
+            return comparePackets(l.slice(1), r.slice(1));
         }
     } 
     // left is integer
     else if(!Array.isArray(l[0])) {
-        l[0] = [l[0]];
-        return comparePackets(l, r);
+        let temp = l;
+        temp[0] = [l[0]]
+        return comparePackets(temp, r);
     }
 
     // right is integer
     else if(!Array.isArray(r[0])) {
-        r[0] = [r[0]];
-        return comparePackets(l, r);
+        let temp = r;
+        temp[0] = [r[0]];
+        return comparePackets(l, temp);
     }
 
     //both arrays 
@@ -71,10 +96,16 @@ function comparePackets(l, r) {
         console.log(`both arrays`);
         let c = comparePackets(l[0], r[0]);
         if(c === 0) {
-            return comparePackets(l.splice(1), r.splice(1));
+            return comparePackets(l.slice(1), r.slice(1));
         } else {
             return c;
         }
+    }
+
+    function sortPackets(l, r) {
+        if(comparePackets(l,r)) {
+            return 1;
+        } else { return -1 };
     }
 }
 
