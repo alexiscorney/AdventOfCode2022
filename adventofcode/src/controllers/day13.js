@@ -101,12 +101,6 @@ function comparePackets(l, r) {
             return c;
         }
     }
-
-    function sortPackets(l, r) {
-        if(comparePackets(l,r)) {
-            return 1;
-        } else { return -1 };
-    }
 }
 
 module.exports = { day13 }
