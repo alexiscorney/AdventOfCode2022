@@ -3,7 +3,7 @@ const { getInputPath } = require('../utils/pathHelper');
 const { create2DArray, log2DArray } = require('../utils/arrayHelper');
 
 const day14 = ((req, res) => {
-    const arr = Array.from(fileToArray(getInputPath('day14test.txt')));
+    const arr = Array.from(fileToArray(getInputPath('day14.txt')));
 
     let [grid, min_x, max_x, min_y, max_y]  = initGrid(arr);
     console.log(`max x ${max_x} max y ${max_y}`);
@@ -16,13 +16,27 @@ const day14 = ((req, res) => {
         fallen = dropSand(grid, 500, 0, max_y);
     }
     log2DArray(grid, min_x-3, max_x+3, min_y-3, max_y+3);
+    
     const part1 = i-1;
-    const part2 = 0;
+
+    [grid, min_x, max_x, min_y, max_y]  = initGrid(arr);
+    addFloor(grid, max_y+2);
+    log2DArray(grid, min_x-4, max_x+4, min_y-4, max_y+4);
+
+    fallen = false;
+    i = 0; 
+    while(!fallen) {
+        i++;
+        fallen = dropSandToFloor(grid, 500, 0);
+    }
+    log2DArray(grid, min_x-10, max_x+10, min_y-4, max_y+4);
+
+    const part2 = i;
     return { dayNumber: 14, part1: part1, part2:  part2};
 })
 
 function initGrid(arr) {
-    let grid = create2DArray(600, 600, '.');
+    let grid = create2DArray(5000, 5000, '.');
     let max_x = 0;
     let max_y = 0;
     let min_x = 600;
@@ -79,7 +93,6 @@ function initGrid(arr) {
 }
 
 function dropSand(grid, start_x, start_y, max_y) {
-    //temp_grid = grid;
     let falling = true; 
     let x = start_x;
     let y = start_y;
@@ -87,19 +100,14 @@ function dropSand(grid, start_x, start_y, max_y) {
         if(y >= max_y) {
             falling = false;
         }
-        //try drop
         if(canFall(grid, x, y+1)) {
             y = y+1;
-            //temp_grid[y+1][x] = 'o';
         } else if(canFall(grid, x-1, y+1)) {
             x = x-1;
             y = y+1;
-            //temp_grid[y+1][x-1] = 'o';
-
         } else if(canFall(grid, x+1, y+1)) {
             x = x+1;
             y = y+1;
-            //temp_grid[y+1][x+1] = 'o';
         } else {
             grid[y][x] = 'o';
             falling = false;
@@ -112,7 +120,37 @@ function dropSand(grid, start_x, start_y, max_y) {
     }
 }
 
+function addFloor(grid, floor) {
+    grid[floor] = Array(grid[0].length).fill('#');
+}
+
+function dropSandToFloor(grid, start_x, start_y) {
+    let falling = true; 
+    let x = start_x;
+    let y = start_y;
+    while(falling) {
+        if(canFall(grid, x, y+1)) {
+            y = y+1;
+        } else if(canFall(grid, x-1, y+1)) {
+            x = x-1;
+            y = y+1;
+        } else if(canFall(grid, x+1, y+1)) {
+            x = x+1;
+            y = y+1;
+        } else {
+            grid[y][x] = 'o';
+            falling = false;
+        }
+    }
+    if(y === start_y && x === start_x) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function canFall(grid, x, y) {
     return grid[y][x] === '.';
 }
+
 module.exports = { day14 }
