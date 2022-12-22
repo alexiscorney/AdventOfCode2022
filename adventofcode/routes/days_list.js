@@ -1,5 +1,6 @@
 const { day1 } = require("../src/controllers/day1");
 const { day10 } = require("../src/controllers/day10");
+const { day11 } = require("../src/controllers/day11");
 const { day13 } = require("../src/controllers/day13");
 const { day14 } = require("../src/controllers/day14");
 const { day15 } = require("../src/controllers/day15");
@@ -30,6 +31,7 @@ const controllers = {
     8: day8,
     9: day9,
     10: day10,
+    11: day11,
     13: day13,
     14: day14,
     15: day15,
