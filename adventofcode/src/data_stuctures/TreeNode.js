@@ -39,6 +39,10 @@ class TreeNode {
         this._children = children;
     }
 
+    addChild(child) {
+      this._children.push(child);
+    }
+
     toString() {
       return `Node: ${this._key.toString()}, value: ${this._value.toString()}`;
     }
