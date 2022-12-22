@@ -2,7 +2,14 @@ const { day1 } = require("../src/controllers/day1");
 const { day10 } = require("../src/controllers/day10");
 const { day13 } = require("../src/controllers/day13");
 const { day14 } = require("../src/controllers/day14");
+const { day16 } = require("../src/controllers/day16");
+const { day17 } = require("../src/controllers/day17");
+const { day18 } = require("../src/controllers/day18");
+const { day19 } = require("../src/controllers/day19");
 const { day2 } = require("../src/controllers/day2");
+const { day20 } = require("../src/controllers/day20");
+const { day21 } = require("../src/controllers/day21");
+const { day22 } = require("../src/controllers/day22");
 const { day3 } = require("../src/controllers/day3");
 const { day4 } = require("../src/controllers/day4");
 const { day5 } = require("../src/controllers/day5");
@@ -24,6 +31,13 @@ const controllers = {
     10: day10,
     13: day13,
     14: day14,
+    16: day16,
+    17: day17,
+    18: day18, 
+    19: day19, 
+    20: day20,
+    21: day21, 
+    22: day22,
 };
 
 module.exports = { controllers };
