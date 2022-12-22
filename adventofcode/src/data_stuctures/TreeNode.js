@@ -31,13 +31,16 @@ class TreeNode {
         this._key = k;
     }
 
-
     set value(v) {
         this._value = v;
     }
 
     set children(children) {
         this._children = children;
+    }
+
+    toString() {
+      return `Node: ${this._key.toString()}, value: ${this._value.toString()}`;
     }
   }
   

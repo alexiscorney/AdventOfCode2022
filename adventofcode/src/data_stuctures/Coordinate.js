@@ -33,9 +33,14 @@ class Coordinate {
         }    
     }
 
-    print() {
+    toString() {
         //console.log(`[${this.x}, ${this.y}]`);
         return `[${this.x}, ${this.y}]`;
+    }
+
+    transform(i,j) {
+        //console.log(`transforming by ${i} ${j}`);
+        return new Coordinate(this._x + i, this._y + j);
     }
 
     get x() {
