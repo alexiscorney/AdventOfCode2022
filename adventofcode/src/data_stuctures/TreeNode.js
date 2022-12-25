@@ -1,10 +1,11 @@
 
 class TreeNode {
-    constructor(key, value = key, parent = null) {
+    constructor(key, value = key, parent = null, time = 0) {
       this.key = key;
       this.value = value;
       this.parent = parent;
       this.children = [];
+      this.time = time;
     }
   
     get isLeaf() {
@@ -27,6 +28,10 @@ class TreeNode {
         return this._children;
     }
 
+    get time() {
+      return this._time;
+    }
+
     set key(k) {
         this._key = k;
     }
@@ -39,12 +44,23 @@ class TreeNode {
         this._children = children;
     }
 
+    set time(time) { 
+      this._time = time;
+    }
+
     addChild(child) {
       this._children.push(child);
     }
 
+    // toString() {
+    //   return `Node: ${this._key.toString()}, value: ${this._value.toString()}`;
+    // }
     toString() {
-      return `Node: ${this._key.toString()}, value: ${this._value.toString()}`;
+      return this._key.toString() ;
+    }
+
+    isLeaf() {
+      return this.children.length === 0;
     }
   }
   
