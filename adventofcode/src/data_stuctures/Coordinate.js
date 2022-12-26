@@ -58,6 +58,10 @@ class Coordinate {
     set y(y) {
         this._y = y;
     }
+
+    equals(coord) {
+        return (this.x == coord.x) && (this.y == coord.y);
+    }
 }
 
 module.exports = { Coordinate }
