@@ -3,7 +3,7 @@ const { getInputPath } = require('../utils/pathHelper');
 const { parse } = require('path/posix');
 
 const day18 = ((req, res) => {
-    const arr = Array.from(fileToArray(getInputPath('day18test.txt')));
+    const arr = Array.from(fileToArray(getInputPath('day18.txt')));
     var cubes = arr.map(row => row.split(',').map(a => parseInt(a)));
     let total_cubes = cubes.length;
     
@@ -25,16 +25,35 @@ const day18 = ((req, res) => {
     //filter cubes 
     cubes = arr.map(row => row.split(',').map(a => parseInt(a)));
 
-    cubes = sortArray(cubes);
-    console.log(cubes); 
+    // cubes = sortArray(cubes);
+    console.log(`minimums:`); 
+    console.log(x_min, x_max,y_min,y_max,z_min,z_max)
 
     const uncontained = filterCubes(full_cubes, cubes);
-    let free_cubes = checkFreeCubes(uncontained, cubes);
-    let free_cubes_no = free_cubes.length;
-    // console.log(free_cubes);
-    console.log(`there are ${free_cubes_no} free cubes`);
+    //const uncontained = [[2,2,5],[3,3,6],[1,1,1]];
 
-    const part2 = exposed_sides - (free_cubes_no * 6);
+    // 16416 8826 = 7590
+    let free_cubes = checkFreeCubes(uncontained, cubes, x_min, x_max,y_min,y_max,z_min,z_max);
+    let free_cubes_no = free_cubes.length;
+    
+    //let free_cubes_no = 1;
+    console.log(free_cubes);
+    console.log(`total cubes: ${total_cubes}`);
+    console.log(`adjacent cubes: ${adjacent_cubes}`);
+    console.log(`exposed sides: ${exposed_sides}`);
+    console.log(`free cubes ${free_cubes_no}`);
+
+    cubes = arr.map(row => row.split(',').map(a => parseInt(a)));
+    let all_cubes = cubes.concat(free_cubes);
+    let free_pairs = generatePairs(all_cubes);
+    let adjacent_free_pairs = free_pairs.filter(p => isAdjacent(p[0],p[1]));
+    let adjacent_free_cubes = adjacent_free_pairs.length;
+    
+    let exposed_free_sides = ((free_cubes_no * 6) - (adjacent_free_cubes * 2));
+
+    console.log(`adjacent free sides: ${adjacent_free_cubes}`);
+
+    const part2 = (exposed_sides - exposed_free_sides);
     return { dayNumber: 18, part1: part1, part2:  part2};
 })
 
@@ -104,29 +123,24 @@ function filterCubes(full_cubes, cubes) {
     //return full_cubes.filter(a => (cubes.filter(b => a.equal_coords(b)).length === 0));
 }
 
-function checkFreeCubes(free_cubes, cubes) {
+function checkFreeCubes(uncontained, cubes, x_min, x_max,y_min,y_max,z_min,z_max) {
     let free = [];
-    for(cube of free_cubes) {
-        let adjacents = generateAdjacentCubes(cube);
-        let all_adjacent_present = true;
-        for(ac of adjacents) {
-            let found = false;
-            for(c of cubes) {
-                if(equal_coords(ac,c)) {
-                    found = true;
-                    break;
-                }
-            }
-            if(!found) {
-                all_adjacent_present = false;
-                break;
-            }
+    uncontained.forEach(c => {
+        console.log(`checking ${c}`);
+        if(isTrapped(c, cubes, x_min, x_max,y_min,y_max,z_min,z_max)) {
+            free.push(c);
         }
-        if(all_adjacent_present) {
-            free.push(cube);
+    })
+    return free;
+}
+
+function coordInList(coord, cubes) {
+    for(cube of cubes) {
+        if(equal_coords(cube,coord)) {
+            return true;
         }
     }
-    return free;
+    return false; 
 }
 
 function generateAdjacentCubes(cube) {
@@ -140,6 +154,79 @@ function generateAdjacentCubes(cube) {
         [x,y,z-1]
     ]
 }
+
+function isTrapped(point, cubes, x_min, x_max,y_min,y_max,z_min,z_max) {
+    return spreadOut(point,cubes,'x',x_min,x_max) && spreadOut(point,cubes,'y',y_min,y_max) && spreadOut(point,cubes,'z',z_min,z_max);
+}
+
+function spreadDown(point, cubes, axis, min, max) {
+    var target; var b; 
+    let x = point[0];
+    let y = point[1];
+    let z = point[2];
+    switch(axis) {
+        case 'x': 
+            target = x;
+            b = [x-1,y,z];
+            break;
+        case 'y': 
+            target = y;
+            b = [x,y-1,z];
+            break;
+        case 'z': 
+            target = z;
+            b = [x,y,z-1];
+            break;
+    }
+    if(target < min) {
+        return false;
+    } 
+    if(target > max) {
+        return false;
+    } 
+    if(coordInList(point, cubes)) {
+        return true;
+    }
+    return spreadDown(b, cubes, axis, min, max);
+}
+
+function spreadUp(point, cubes, axis, min, max) {
+    var target; var a;   
+    let x = point[0];
+    let y = point[1];
+    let z = point[2];
+    switch(axis) {
+        case 'x': 
+            target = x;
+            a = [x+1,y,z];
+            break;
+        case 'y': 
+            target = y;
+            a = [x,y+1,z];
+            break;
+        case 'z': 
+            target = z;
+            a = [x,y,z+1];
+            break;
+    }
+    if(target < min) {
+        return false;
+    } 
+    if(target > max) {
+        return false;
+    } 
+    if(coordInList(point, cubes)) {
+        return true;
+    }
+    return spreadUp(a, cubes, axis, min, max);
+
+}
+function spreadOut(point, cubes, axis, min, max) {
+    console.log(`spread ${point} axis ${axis}`);
+    return spreadDown(point, cubes, axis, min, max) && spreadUp(point, cubes, axis, min, max)
+}
+
+
 function equal_coords(a, b) {
     let [x,y,z] = a;
     let [i,j,k] = b;
