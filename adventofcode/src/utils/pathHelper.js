@@ -7,4 +7,8 @@ function createDaysRoute(dayNumber) {
 function getInputPath(filename) {
     return path.join(__dirname, '../../input/', filename);
 }
-module.exports = { createDaysRoute, getInputPath }
+
+function getPythonScript(filename) {
+    return path.join(__dirname, '../python/', filename);
+}
+module.exports = { createDaysRoute, getInputPath, getPythonScript }
