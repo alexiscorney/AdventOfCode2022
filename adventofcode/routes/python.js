@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-const { getPythonScript } = require('../src/utils/pathHelper')
+const { getPythonScript, getInputPath } = require('../src/utils/pathHelper')
 
 const { spawn } = require('child_process');
 
 router.get('/:day', function(req, res, next) {
     const path = getPythonScript(`day${req.params.day}.py`)
-    const pythonProgram = spawn('python3', [path]);
+    const inputPath = getInputPath(`day${req.params.day}.txt`);
+    const pythonProgram = spawn('python3', [path, inputPath]);
     var dataToSend; 
     pythonProgram.stdout.on('data', (data) => {
         dataToSend = data;
@@ -17,7 +18,7 @@ router.get('/:day', function(req, res, next) {
         res.render('day', JSON.parse(dataToSend));
     });
     pythonProgram.stderr.on('data', (data) => {
-        console.log(`error ${data}`)
+        console.log(`${data}`)
     });
     
 });

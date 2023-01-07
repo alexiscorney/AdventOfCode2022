@@ -4,6 +4,10 @@ function createDaysRoute(dayNumber) {
     return `/days/${dayNumber}`;
 }
 
+function createPythonDaysRoute(dayNumber) {
+    return `/python/${dayNumber}`;
+}
+
 function getInputPath(filename) {
     return path.join(__dirname, '../../input/', filename);
 }
@@ -11,4 +15,4 @@ function getInputPath(filename) {
 function getPythonScript(filename) {
     return path.join(__dirname, '../python/', filename);
 }
-module.exports = { createDaysRoute, getInputPath, getPythonScript }
+module.exports = { createDaysRoute, getInputPath, getPythonScript, createPythonDaysRoute }

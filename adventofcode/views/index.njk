@@ -3,13 +3,26 @@
 {% block content %}
   {% block header %} Welcome to {{title}} {% endblock %}
   {% block days %}
-    <table>
+    <table id="solutions_table">
         <tbody>
+          </tr>
+            <td>JavaScript Soltutions: </td>
+            <td>Python Soltutions: </td>
+          </tr>
+          <td>
             {% for day in days %}
-                <tr>
+                <table id="inside_table">
                     <td><a href="{{day.path}}">{{day.dayNumber}}</a></td>
-                </tr>
+                </table>
             {% endfor %}
+          </td>
+          <td>
+            {% for day in python_days %}
+                <table id="inside_table">
+                    <td><a href="{{day.path}}">{{day.dayNumber}}</a></td>
+                </table>
+            {% endfor %}
+          <td>
         </tbody>
     </table>
 
