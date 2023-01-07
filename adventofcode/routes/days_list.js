@@ -46,6 +46,8 @@ const controllers = {
     22: day22,
 };
 
-const python_days = [12]
+const python_days = {
+    12: 'day12'
+};
 
 module.exports = { controllers, python_days};
