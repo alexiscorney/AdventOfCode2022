@@ -1,3 +1,5 @@
 *.ipynb 
 
 /src/python/*.txt
+
+/src/python/jupyter_notebooks
